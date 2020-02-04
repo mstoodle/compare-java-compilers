@@ -18,24 +18,26 @@ mkdir runs
 
 ./run-docker-db.sh
 
-./run-server.sh         $RUNS 0 jdk8 native
-./run-server.sh         $RUNS 0 jdk8 native-tuned
-./run-server.sh         $RUNS 0 jdk8 hs
-./run-server.sh         $RUNS 0 jdk8 j9
-./run-server.sh         $RUNS 0 jdk8 j9-sc
-./run-server.sh         $RUNS 0 jdk8 j9-scvirt
-./run-server.sh         $RUNS 0 jdk11 hs
-./run-server.sh         $RUNS 0 jdk11 hs-jaotc
-./run-server.sh         $RUNS 0 jdk11 hs-jaotc-tier
-./run-server.sh         $RUNS 0 jdk11 graal
-./run-server.sh         $RUNS 0 jdk11 j9
-./run-server.sh         $RUNS 0 jdk11 j9-sc
-./run-server.sh         $RUNS 0 jdk11 j9-scvirt
+APPCORES="0"
+JITCORES="1-3"
+./run-server.sh         $RUNS $APPCORES jdk8 native
+./run-server.sh         $RUNS $APPCORES jdk8 native-tuned
+./run-server.sh         $RUNS $APPCORES jdk8 hs
+./run-server.sh         $RUNS $APPCORES jdk8 j9
+./run-server.sh         $RUNS $APPCORES jdk8 j9-sc
+./run-server.sh         $RUNS $APPCORES jdk8 j9-scvirt
+./run-server.sh         $RUNS $APPCORES jdk11 hs
+./run-server.sh         $RUNS $APPCORES jdk11 hs-jaotc
+./run-server.sh         $RUNS $APPCORES jdk11 hs-jaotc-tier
+./run-server.sh         $RUNS $APPCORES jdk11 graal
+./run-server.sh         $RUNS $APPCORES jdk11 j9
+./run-server.sh         $RUNS $APPCORES jdk11 j9-sc
+./run-server.sh         $RUNS $APPCORES jdk11 j9-scvirt
 
-./run-with-jitserver.sh $RUNS 1-3 0 jdk8 j9-jitserver
-./run-with-jitserver.sh $RUNS 1-3 0 jdk8 j9-sc-jitserver
-./run-with-jitserver.sh $RUNS 1-3 0 jdk11 j9-jitserver
-./run-with-jitserver.sh $RUNS 1-3 0 jdk11 j9-sc-jitserver
+./run-with-jitserver.sh $RUNS $JITCORES $APPCORES jdk8 j9-jitserver
+./run-with-jitserver.sh $RUNS $JITCORES $APPCORES jdk8 j9-sc-jitserver
+./run-with-jitserver.sh $RUNS $JITCORES $APPCORES jdk11 j9-jitserver
+./run-with-jitserver.sh $RUNS $JITCORES $APPCORES jdk11 j9-sc-jitserver
 
 ./stop-docker-db.sh
 
