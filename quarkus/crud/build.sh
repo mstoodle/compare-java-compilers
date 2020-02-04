@@ -7,6 +7,11 @@ if [ "$1" == "--download" ] || [ ! -d $JDK_HOME ]; then
 	popd
 fi
 
+# Make sure the wrk workload driver is fully built
+pushd ../../wrk
+make
+popd
+
 # kill any errant servers sometimes left behind if one stops this script mid-way
 # all containers have "rest-crud-quarkus" in their name (see ROOTNAME below)
 echo Killing any errant servers left around, always prints a \"No such process\" error
