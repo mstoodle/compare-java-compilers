@@ -20,6 +20,8 @@ mkdir runs
 
 APPCORES="0"
 JITCORES="1-3"
+echo Runs with APPCORES=$APPCORES and JITCORES=$JITCORES
+
 ./run-server.sh         $RUNS $APPCORES jdk8 native
 ./run-server.sh         $RUNS $APPCORES jdk8 native-tuned
 ./run-server.sh         $RUNS $APPCORES jdk8 hs
