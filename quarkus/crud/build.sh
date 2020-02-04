@@ -26,10 +26,8 @@ GRAAL11_DIR=graalvm-ce-19.2.1
 JITSERVER_HOST=`hostname`
 JITSERVER_PORT=38400
 
-sudo docker build -f Dockerfile-jdk8-jitserver -t jitserver-jdk8 \
-	--build-arg SERVER="$JITSERVER_HOST" --build-arg PORT="$JITSERVER_PORT" .
-sudo docker build -f Dockerfile-jdk11-jitserver -t jitserver-jdk11 \
-	--build-arg SERVER="$JITSERVER_HOST" --build-arg PORT="$JITSERVER_PORT" .
+sudo docker build -f Dockerfile-jdk8-jitserver -t jitserver-jdk8 .
+sudo docker build -f Dockerfile-jdk11-jitserver -t jitserver-jdk11 .
 
 # Compile Convert.java
 export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK8_DIR
