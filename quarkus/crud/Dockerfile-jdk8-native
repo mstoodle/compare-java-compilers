@@ -1,0 +1,11 @@
+FROM debian:stretch-slim
+
+RUN mkdir /work \
+    && chmod 777 /work
+
+COPY target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner /work/rest-http-crud-quarkus-runner
+EXPOSE 8080
+
+WORKDIR /work
+COPY scriptToRunInsideDocker.sh /work/scriptToRunInsideDocker.sh
+ENTRYPOINT ["/work/scriptToRunInsideDocker.sh", "--native"]

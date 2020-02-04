@@ -1,0 +1,4 @@
+[submodule "wrk"]
+	path = wrk
+	url = https://github.com/mstoodle/wrk
+	branch = report_intervals

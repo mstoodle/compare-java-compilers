@@ -1,0 +1,20 @@
+FROM adoptopenjdk:11.0.6_10-jdk-openj9-0.18.1
+
+# set up /work directory structure and prove right JDK is being used
+RUN mkdir /work \
+    && chmod 777 /work \
+    && mkdir /work/.classCache \
+    && java -version
+
+# copy quarkus rest-crud application into the container
+COPY target/lib /work/lib
+COPY target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar /work/application.jar
+EXPOSE 8080
+
+# copy the shared cache into the container: use --build-arg CLASS_CACHE=<shared cache file on host>
+ARG CLASS_CACHE
+COPY  ${CLASS_CACHE} /work/.classCache
+
+WORKDIR /work
+COPY scriptToRunInsideDocker.sh /work/scriptToRunInsideDocker.sh
+ENTRYPOINT ["/work/scriptToRunInsideDocker.sh", "--jitserver", "127.0.0.1", "38400", "--sc"]

@@ -1,0 +1,13 @@
+FROM adoptopenjdk:8u242-b08-jdk-openj9-0.18.1
+
+RUN mkdir /work \
+    && chmod 777 /work \
+    && java -version
+
+COPY target/lib /work/lib
+COPY target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar /work/application.jar
+EXPOSE 8080
+
+WORKDIR /work
+COPY scriptToRunInsideDocker.sh /work/scriptToRunInsideDocker.sh
+ENTRYPOINT ["/work/scriptToRunInsideDocker.sh"]
