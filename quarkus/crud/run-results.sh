@@ -12,8 +12,8 @@ fi
 
 # Give 2 chances for foolishness
 rm -rf runs-old2 > /dev/null
-mv runs-old1 runs-old2 > /dev/null
-mv runs      runs-old1 > /dev/null
+mv -f runs-old1 runs-old2 > /dev/null
+mv -f runs      runs-old1 > /dev/null
 mkdir runs
 
 ./run-docker-db.sh
