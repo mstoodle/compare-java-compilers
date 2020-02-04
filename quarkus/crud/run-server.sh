@@ -1,24 +1,27 @@
 #/bin/bash -f
 
-if [[ $# < 3 ]]; then
-	echo "Usage: $0 <#runs> <jdk8 or jdk11> <variant used in image names>"
+if [[ $# < 4 ]]; then
+	echo "Usage: $0 <#runs> <cores> <jdk8 or jdk11> <variant used in image names>"
+	echo "  e.g. $0 3 0-7 jdk8 openj9"
+	echo "       Performs 3 runs using 8 cores (0 through 7) using jdk8 with the OpenJ9 JVM in default (JIT) mode"
 	exit -1
 fi
 
 RUNS=$1
-JDK=$2
-VARIANT=$3
+CORES=$2
+JDK=$3
+VARIANT=$4
 ROOTNAME=rest-crud-quarkus
 
 do_run() {
     run=$1
     suffix="${JDK}-${VARIANT}"
-    suffix_run="${suffix}-${run}"
+    suffix_run="${suffix}-${CORES}-${run}"
 
     echo "    Starting server"
     OUT=runs/out.${suffix_run}
     date +"%H:%M:%S:%3N" > $OUT
-    sudo docker run -e TZ=`cat /etc/timezone` --name server -t --cpuset-cpus="1" --rm -p 8080:8080 --network host ${ROOTNAME}-${suffix} >> $OUT 2>/dev/null &
+    sudo docker run -e TZ=`cat /etc/timezone` --name server -t --cpuset-cpus="$CORES" --rm -p 8080:8080 --network host ${ROOTNAME}-${suffix} >> $OUT 2>/dev/null &
 
     # wait for server to fully start
     sleep 15
