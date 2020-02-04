@@ -52,7 +52,7 @@ To start from scratch, do the following:
 $ git clone https://github.com/mstoodle/compare-java-compilers
 $ cd compare-java-compilers
 $ ./download.sh | tee download.sh.out
-$ cd crud-quarkus
+$ cd quarkus/crud
 $ ./build.sh | tee build.sh.out
 $ ./run-results.sh | tee run-results.sh.out
 $ ls -l ./run/all.*.txt
