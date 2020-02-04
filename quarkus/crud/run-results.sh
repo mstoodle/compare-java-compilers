@@ -43,6 +43,6 @@ echo Runs with APPCORES=$APPCORES and JITCORES=$JITCORES
 
 ./stop-docker-db.sh
 
-./extract-su.awk runs/out.* > runs/all.su.txt
-./extract-fp.awk runs/fp.* > runs/all.fp.txt
-./extract-tp.awk runs/tp.* > runs/all.tp.txt
+./extract.su.awk runs/out.* > runs/all.su.txt
+./extract.fp.awk runs/fp.*  > runs/all.fp.txt
+./extract.tp.awk runs/tp.*  > runs/all.tp.txt
