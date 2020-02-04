@@ -3,3 +3,4 @@ jdk
 compile.*
 runs*
 classCache
+wrk
