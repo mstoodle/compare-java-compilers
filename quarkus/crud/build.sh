@@ -19,6 +19,7 @@ HOTSPOT=hotspot
 GRAAL=graalvm-ce
 
 JDK8_DIR=jdk8u242-b08/jre
+JDK8_BINDIR=jdk8u242-b08/bin
 JDK11_DIR=jdk-11.0.6+10
 GRAAL11_DIR=graalvm-ce-19.2.1
 
@@ -30,8 +31,8 @@ sudo docker build -f Dockerfile-jdk8-jitserver -t jitserver-jdk8 .
 sudo docker build -f Dockerfile-jdk11-jitserver -t jitserver-jdk11 .
 
 # Compile Convert.java
-export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK8_DIR
-$JAVA_HOME/bin/javac Convert.java
+export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK8_BINDIR
+$JAVA_HOME/javac Convert.java
 
 # force this name to consistently be in every server container name
 ROOTNAME=rest-crud-quarkus
