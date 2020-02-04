@@ -49,7 +49,7 @@ processed by a graph plotting tool. It would be cool to have the repository disp
 
 To start from scratch, do the following:
 ```
-$ git clone https://github.com/mstoodle/compare-java-compilers
+$ git clone --recursive https://github.com/mstoodle/compare-java-compilers
 $ cd compare-java-compilers
 $ ./download.sh | tee download.sh.out
 $ cd quarkus/crud
