@@ -30,4 +30,4 @@ awk -v STR="compileOnly " \
 	"BEGIN                             { m=0; } \
 	/# Method::print_touched_methods/  { m=1; next; } \
 	//                                 { if (m) print STR \$0; }" compile.alloutput | \
-	java Convert > compile.aotcfg
+	$JAVA_HOME/bin/java Convert > compile.aotcfg
