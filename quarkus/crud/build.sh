@@ -32,7 +32,7 @@ sudo docker build -f Dockerfile-jdk11-jitserver -t jitserver-jdk11 \
 	--build-arg SERVER="$JITSERVER_HOST" --build-arg PORT="$JITSERVER_PORT" .
 
 # Compile Convert.java
-export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK8
+export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK8_DIR
 $JAVA_HOME/bin/javac Convert.java
 
 # force this name to consistently be in every server container name
