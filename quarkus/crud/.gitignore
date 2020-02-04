@@ -2,3 +2,4 @@ jdk
 *.out
 compile.*
 runs*
+classCache
