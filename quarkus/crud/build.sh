@@ -11,6 +11,7 @@ fi
 pushd ../../wrk
 make
 popd
+ln -s ../../wrk/bin/wrk wrk
 
 # kill any errant servers sometimes left behind if one stops this script mid-way
 # all containers have "rest-crud-quarkus" in their name (see ROOTNAME below)
