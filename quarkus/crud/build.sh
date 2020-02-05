@@ -66,19 +66,25 @@ sudo docker build -f Dockerfile-jdk8-j9 -t ${ROOTNAME}-jdk8-j9 .
 sudo docker build -f Dockerfile-jdk8-j9-jitserver -t ${ROOTNAME}-jdk8-j9-jitserver \
 	--build-arg SERVER="$JITSERVER_HOST" --build-arg PORT="$JITSERVER_PORT" .
 
+# clean up any existing caches
+rm -rf classCache/*
+
 # jdk8 OpenJ9 shared cache
 export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK8_DIR
-$JAVA_HOME/bin/java -Xshareclasses:name=sc,destroy
 echo "Starting server to populate shared classes cache"
 numactl --physcpubind=1 $JAVA_HOME/bin/java \
-	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 -XX:ShareClassesEnableBCI \
-	-Xscmx80m \
+	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 \
+	-XX:ShareClassesEnableBCI -Xscmx40m \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
 	-jar target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar 2>&1 > /dev/null &
 PID=$!
 sleep 15
 echo "    Done!"
 kill -9 $PID
+
+echo JDK8 sc cache stats
+$JAVA_HOME/bin/java -Xshareclasses:name=sc,cacheDir=classCache,printStats
+
 sudo docker build -f Dockerfile-jdk8-j9-sc -t ${ROOTNAME}-jdk8-j9-sc \
 	--build-arg CLASS_CACHE=classCache/C290M4F1A64P_sc_G41L00 .
 
@@ -92,7 +98,7 @@ $JAVA_HOME/bin/java -Xshareclasses:name=scvirt,destroy
 echo "Starting server to populate shared classes cache"
 numactl --physcpubind=1 $JAVA_HOME/bin/java \
 	-Xshareclasses:name=scvirt,cacheDir=classCache,cacheDirPerm=1000 \
-	-XX:ShareClassesEnableBCI -Xscmx160m \
+	-XX:ShareClassesEnableBCI -Xscmx60m \
 	-Xtune:virtualized \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
 	-jar target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar 2>&1 > /dev/null &
@@ -102,6 +108,10 @@ echo "Applying load to populate shared classes cache"
 ./run-load.sh
 echo "    Done!"
 kill -9 $PID
+
+echo JDK8 scvirt cache stats
+$JAVA_HOME/bin/java -Xshareclasses:name=scvirt,cacheDir=classCache,printStats
+
 sudo docker build -f Dockerfile-jdk8-j9-scvirt -t ${ROOTNAME}-jdk8-j9-scvirt \
 	--build-arg CLASS_CACHE=classCache/C290M4F1A64P_scvirt_G41L00 .
 
@@ -147,14 +157,18 @@ export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK11_DIR/
 $JAVA_HOME/bin/java -Xshareclasses:name=sc,destroy
 echo "Starting server to populate shared classes cache"
 numactl --physcpubind=1 $JAVA_HOME/bin/java \
-	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 -XX:ShareClassesEnableBCI \
-	-Xscmx80m \
+	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 \
+	-XX:ShareClassesEnableBCI -Xscmx40m \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
 	-jar target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar 2>&1 > /dev/null &
 PID=$!
 sleep 15
 echo "    Done!"
 kill -9 $PID
+
+echo JDK11 sc cache stats
+$JAVA_HOME/bin/java -Xshareclasses:name=sc,cacheDir=classCache,printStats
+
 sudo docker build -f Dockerfile-jdk11-j9-sc -t ${ROOTNAME}-jdk11-j9-sc \
 	--build-arg CLASS_CACHE=classCache/C290M11F1A64P_sc_G41L00 .
 
@@ -168,7 +182,7 @@ $JAVA_HOME/bin/java -Xshareclasses:name=scvirt,destroy
 echo "Starting server to populate shared classes cache"
 numactl --physcpubind=1 $JAVA_HOME/bin/java \
 	-Xshareclasses:name=scvirt,cacheDir=classCache,cacheDirPerm=1000 \
-	-XX:ShareClassesEnableBCI -Xscmx160m \
+	-XX:ShareClassesEnableBCI -Xscmx60m \
 	-Xtune:virtualized \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
 	-jar target/rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner.jar 2>&1 > /dev/null &
@@ -178,5 +192,9 @@ echo "Applying load to populate shared classes cache"
 ./run-load.sh
 echo "    Done!"
 kill -9 $PID
+
+echo JDK11 scvirt cache stats
+$JAVA_HOME/bin/java -Xshareclasses:name=scvirt,cacheDir=classCache,printStats
+
 sudo docker build -f Dockerfile-jdk11-j9-scvirt -t ${ROOTNAME}-jdk11-j9-scvirt \
 	--build-arg CLASS_CACHE=classCache/C290M11F1A64P_scvirt_G41L00 .
