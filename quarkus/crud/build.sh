@@ -142,6 +142,15 @@ cd ..
 sudo docker build -f Dockerfile-jdk11-hs-jaotc -t ${ROOTNAME}-jdk11-hs-jaotc-tier \
 	--build-arg AOTLIB="rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner-tiered.so" .
 
+# jdk11 HS jaotc full
+export JAVA_HOME=$JDK_HOME/$HOTSPOT/$JDK11_DIR/
+cd target
+$JAVA_HOME/bin/jaotc --output rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner-full.so \
+	--module java.base --info
+cd ..
+sudo docker build -f Dockerfile-jdk11-hs-jaotc -t ${ROOTNAME}-jdk11-hs-jaotc-full \
+	--build-arg AOTLIB="rest-http-crud-quarkus-1.0.0.Alpha1-SNAPSHOT-runner-full.so" .
+
 # jdk11 Graal
 sudo docker build -f Dockerfile-jdk11-graal -t ${ROOTNAME}-jdk11-graal .
 

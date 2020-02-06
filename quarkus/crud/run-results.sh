@@ -19,6 +19,7 @@ do-all-runs() {
         ./run-server.sh         $RUNS $APPCORES jdk8 j9-scvirt
         ./run-server.sh         $RUNS $APPCORES jdk11 hs
         ./run-server.sh         $RUNS $APPCORES jdk11 hs-jaotc
+        ./run-server.sh         $RUNS $APPCORES jdk11 hs-jaotc-full
         ./run-server.sh         $RUNS $APPCORES jdk11 hs-jaotc-tier
         ./run-server.sh         $RUNS $APPCORES jdk11 graal
         ./run-server.sh         $RUNS $APPCORES jdk11 j9
