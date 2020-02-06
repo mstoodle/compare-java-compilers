@@ -65,4 +65,5 @@ for r in $RUNS; do
 	./extract.su.awk runs/out.*-$r > runs/all.su.$r.txt
 	./extract.fp.awk runs/fp.*-$r  > runs/all.fp.$r.txt
 	./extract.tp.awk runs/tp.*-$r  > runs/all.tp.$r.txt
+	./extract.cr.awk runs/tp.*-$r  > runs/all.cr.$r.txt
 done
