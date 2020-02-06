@@ -53,12 +53,12 @@ do-all-runs $RUNS $JITCORES $APPCORES
 # Uncomment to do 4 core runs on at least an 8-core machine
 #APPCORES="4-7"
 #JITCORES="0-3"
-#do-all-runs.sh $RUNS $JITCORES $APPCORES
+#do-all-runs $RUNS $JITCORES $APPCORES
 
 # Uncomment next 3 lines to do 24 core runs on at least a 32-core machine
 #APPCORES="0-23"
 #JITCORES="24-31"
-#do-all-runs.sh $RUNS $JITCORES $APPCORES
+#do-all-runs $RUNS $JITCORES $APPCORES
 
 ./stop-docker-db.sh
 
