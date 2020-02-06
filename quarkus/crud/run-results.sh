@@ -48,7 +48,7 @@ fi
 # Do single core runs on at least a 4-core machine
 APPCORES="0"
 JITCORES="1-3"
-do-all-runs.sh $RUNS $JITCORES $APPCORES
+do-all-runs $RUNS $JITCORES $APPCORES
 
 # Uncomment to do 4 core runs on at least an 8-core machine
 #APPCORES="4-7"
