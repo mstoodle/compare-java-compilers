@@ -72,7 +72,7 @@ rm -rf classCache/*
 # jdk8 OpenJ9 shared cache
 export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK8_DIR
 echo "Starting server to populate shared classes cache"
-numactl --physcpubind=1 $JAVA_HOME/bin/java \
+$JAVA_HOME/bin/java \
 	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 \
 	-XX:ShareClassesEnableBCI -Xscmx40m \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
@@ -96,7 +96,7 @@ sudo docker build -f Dockerfile-jdk8-j9-sc-jitserver -t ${ROOTNAME}-jdk8-j9-sc-j
 export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK8_DIR
 $JAVA_HOME/bin/java -Xshareclasses:name=scvirt,destroy
 echo "Starting server to populate shared classes cache"
-numactl --physcpubind=1 $JAVA_HOME/bin/java \
+$JAVA_HOME/bin/java \
 	-Xshareclasses:name=scvirt,cacheDir=classCache,cacheDirPerm=1000 \
 	-XX:ShareClassesEnableBCI -Xscmx60m \
 	-Xtune:virtualized \
@@ -156,7 +156,7 @@ sudo docker build -f Dockerfile-jdk11-j9-jitserver -t ${ROOTNAME}-jdk11-j9-jitse
 export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK11_DIR/
 $JAVA_HOME/bin/java -Xshareclasses:name=sc,destroy
 echo "Starting server to populate shared classes cache"
-numactl --physcpubind=1 $JAVA_HOME/bin/java \
+$JAVA_HOME/bin/java \
 	-Xshareclasses:name=sc,cacheDir=classCache,cacheDirPerm=1000 \
 	-XX:ShareClassesEnableBCI -Xscmx40m \
 	-Xmx128m -Djava.net.preferIPv4Stack=true \
@@ -180,7 +180,7 @@ sudo docker build -f Dockerfile-jdk11-j9-sc-jitserver -t ${ROOTNAME}-jdk11-j9-sc
 export JAVA_HOME=$JDK_HOME/$OPENJ9/$JDK11_DIR/
 $JAVA_HOME/bin/java -Xshareclasses:name=scvirt,destroy
 echo "Starting server to populate shared classes cache"
-numactl --physcpubind=1 $JAVA_HOME/bin/java \
+$JAVA_HOME/bin/java \
 	-Xshareclasses:name=scvirt,cacheDir=classCache,cacheDirPerm=1000 \
 	-XX:ShareClassesEnableBCI -Xscmx60m \
 	-Xtune:virtualized \
