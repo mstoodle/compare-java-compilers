@@ -16,7 +16,7 @@ ROOTNAME=rest-crud-quarkus
 do_run() {
     run=$1
     suffix="${JDK}-${VARIANT}"
-    suffix_run="${suffix}-${CORES}-${run}"
+    suffix_run="${CORES}-${suffix}-${run}"
 
     echo "    Starting server"
     OUT=runs/out.${suffix_run}
